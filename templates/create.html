@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form method="POST">{% csrf_token %}
+
+  <p>event_name: <input type="text" name="event_name"></p>
+  <p>start_date: <input type="datetime-local" name="start_date"></p>
+  <p>end_date: <input type="datetime-local" name="end_date"></p>
+  <input type="submit" value="Create!">
+  
+</form>
+
+{% endblock content %}

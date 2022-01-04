@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" href="{% static 'calendar.css' %}">
+{% endblock customcss %}
+
+
+{% block header %}
+<body>
+<div id="header" class="bg-primary">
+  <h4 id="logo" class="ml-5">My Calendar</h4>
+  <nav>
+    <span class="material-icons mr-5">search</span>
+    <span class="material-icons mr-5">account_circle</span>
+  </nav>
+</div>
+<article>
+   <header class="side bg-secondary">
+    <ul class="nav flex-column">
+  <li class="nav-item mb-5">
+    <a class="" aria-current="page" href="#">Dashboard</a>
+  </li>
+  <li class="nav-item mb-5">
+    <a class="" href="#">Calendar</a>
+  </li>
+  <li class="nav-item mb-5">
+    <a class="" href="#">Events</a>
+  </li>
+  <li class="nav-item mb-5">
+    <a href="http://127.0.0.1:8000/create/"><button type="button" class="btn-primary p-3">予定を追加する</button></a>
+  </li>
+    </ul>
+  </header>
+{% endblock header %}
+
+{% block content %}
+
+{% for item in event_list %}
+  <div id="calendar"></div>
+
+
+
+
+<script>
+
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'dayGridMonth',
+          themeSystem: 'bootstrap',
+          timeZone: 'UTC',
+          headerToolbar: {
+            left: "prev,next,today",
+            center: "title",
+            right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth"
+          },
+          events: [
+            {
+              title: '{{ item.event_name }}',
+              start: '{{ item.start_date|date:"Y-m-d" }}',
+              end: '{{ item.end_date|date:"Y-m-d" }}',
+            }
+          ]
+        });
+        calendar.render();
+      });
+
+
+</script>
+
+{% endfor %}
+</article>
+</body>
+{% endblock content %}
